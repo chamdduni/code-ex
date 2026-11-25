@@ -7,16 +7,63 @@
 <title>index</title>
 	
 <style>
-	.website-btn{
-		display: block
-		width: 300px; height: 300px;
-	}	
-	</style>
-</head>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background-color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn {
+  width: 150px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 4px;
+  background-color: #555;
+  color: #fff; /* 텍스트 컬러 */
+  cursor: pointer;
+  transition:
+    background-color 0.5s ease,
+    transform 0.5s ease;
+}
+/* Hover */
+.btn:hover {
+  background-color: #000;
+  color: #fff;
+  transform: translateY(-5px);
+}
+</style>
 
 <body>
-
-
-<a href="practice_PC.html" class="website-btn">PC</a>
+  <div class="container">
+    <a href="practice_PC.html" class="btn">PC</a>
+    <a href="practice_MO.html" class="btn">MO</a>
+  </div>
 </body>
+	
+	
 </html>
