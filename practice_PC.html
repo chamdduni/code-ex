@@ -202,6 +202,104 @@ background: url("ex_img/PC_slide_bg.jpg") center center / cover no-repeat;
   transform: translate(-50%, -50%) translateX(120%);
 }
 	
+	
+/* ================= Hover img/text change ================= */	
+
+.catewrap {width: 1420px;background-color: #fff;}
+.cate {
+  max-width: 1000px; height: 300px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: grid; align-items: center; justify-content: center;
+  grid-template-columns: repeat(3, 1fr); /* 동일한 너비의 열 3개 생성 */
+  gap: 16px;
+}
+
+/* 카드 */
+.cate a {
+  position: relative;
+  display: block;
+  aspect-ratio: 5/3;  /* 카드 가로세로 비율 설정 5:3비율 */
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* 이미지 */
+.cate img[src=''] {display: none;}  /* 이미지의 src가 비어 있으면 이미지를 숨김 */
+.cate img {
+  position: absolute;
+  inset: 0; /* 상하좌우를 모두 0으로 설정 */
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+	
+/* 이미지 오버레이 */
+.cate a::after {
+  content: ""; /* 가상요소 생성성 */
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.25);
+  transition: background .3s ease;
+}
+
+/* 텍스트 */
+.cate span {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* 이미지와 오버레이보다 위에 표시 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -.02em;
+  text-shadow: 0 1px 6px rgba(0,0,0,.35);
+}
+
+/* 텍스트 전환 */
+.cate .t, .cate .v {
+  transition: opacity .25s ease, transform .25s ease;
+}
+.cate .v {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Hover 효과 */
+.cate a:hover::after, .cate a:focus-visible::after {
+  background: rgba(0,0,0,.5);
+}
+.cate a:hover img, .cate a:focus-visible img {
+  transform: scale(1.06);
+}
+.cate a:hover .t, .cate a:focus-visible .t {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.cate a:hover .v, .cate a:focus-visible .v {
+  opacity: 1;
+  transform: none;
+}
+
+/* 키보드 접근성 */
+.cate a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+
+/* 모션 최소화 설정 */
+@media (prefers-reduced-motion: reduce) {
+  .cate *,
+  .cate a::after {
+    transition: none !important;
+  }
+}
+
+	
+	
 </style>
 	
 </head>
@@ -256,9 +354,9 @@ background: url("ex_img/PC_slide_bg.jpg") center center / cover no-repeat;
 			usemap과 map name과 일치해야함
 			map name과 id는 달라도 됨 -->
 		<map name="fade-up-map" id="fade-up-area">
-	      <area shape="rect" coords="424,45,605,256" href="https://www.naver.com/" alt="첫번째 영역"/>
-		  <area shape="rect" coords="619,45,798,255" href="https://www.naver.com/" alt="두번째 영역"/>
-		  <area shape="rect" coords="817,43,994,258" href="https://www.naver.com/" alt="세번째 영역"/>
+	      <area shape="rect" coords="424,45,605,256" href="#" alt="첫번째 영역"/>
+		  <area shape="rect" coords="619,45,798,255" href="#" alt="두번째 영역"/>
+		  <area shape="rect" coords="817,43,994,258" href="#" alt="세번째 영역"/>
 		</map>
     </div>
 	
@@ -277,7 +375,7 @@ background: url("ex_img/PC_slide_bg.jpg") center center / cover no-repeat;
 	
 <div class="blur-hover-section">
 	<div class="blur-hover-img-box scroll-blur"> 
-		<a href="https://www.naver.com/" class="image-card">
+		<a href="#" class="image-card">
 			<img src="ex_img/PC_hover.jpg" alt="이미지" class="image">
 			<div class="overlay-text">VIEW MORE →</div>
 		</a>
@@ -297,6 +395,30 @@ background: url("ex_img/PC_slide_bg.jpg") center center / cover no-repeat;
   <div class="card"><img src="ex_img/PC_slide_wrap_06.jpg"></div>
 </div>
 	
+
+<p>Hover img/text change</p>
+<!-- ======== 이미지/글씨 체인지 ======== -->
+<div class="catewrap">		
+<nav class="cate">
+	<a href="#">
+		<img src="ex_img/ice_img.jpg" loading="lazy">
+		<span class="t">고체</span>
+		<span class="v" aria-hidden="true">얼음</span>
+	</a>
+	<a href="#">
+		<img src="ex_img/water_img.jpg" loading="lazy">
+		<span class="t">액체</span>
+		<span class="v" aria-hidden="true">물</span>
+	</a>
+	<a href="#">
+		<img src="ex_img/cloud_img.jpg" loading="lazy">
+		<span class="t">기체</span>
+		<span class="v" aria-hidden="true">구름</span>
+	</a>	
+</nav>		
+</div>	
+	
+
 	
 <!-- ================= 프로모션 페이지 끝 ================= -->
 </div> 
