@@ -53,7 +53,7 @@ html{scroll-behavior:smooth;}
 .promotion_pc {
     width: 1420px;
     min-width: 1420px;
-	height: 3000px;
+	height: 5000px;
     margin: 0 auto;
     position: relative; 
 	/* relative는 원래 위치를 기준으로 배치 */
@@ -158,6 +158,50 @@ html{scroll-behavior:smooth;}
 .image-card:hover .overlay-text{
   	background:rgba(0,0,0,0.80);
 }
+	
+	
+	
+	
+/* ================= Img Slide ================= */
+.slide_wrap {
+  position: relative;
+  width: 1420px; height: 600px;
+  overflow: hidden;
+background: url("ex_img/PC_slide_bg.jpg") center center / cover no-repeat;
+}
+.card {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 280px; height: 360px;
+  opacity: 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transform: translate(-50%, -50%);
+  transition: all 0.8s ease;
+}
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 왼쪽 */
+.card.left {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateX(-120%);
+}
+/* 중앙 */
+.card.center {
+  width: 350px;  height: 450px;
+  opacity: 1;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+/* 오른쪽 */
+.card.right {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateX(120%);
+}
+	
 </style>
 	
 </head>
@@ -242,6 +286,17 @@ html{scroll-behavior:smooth;}
 	
 	
 	
+<p>Img slide</p>
+<!-- ======== 이미지 슬라이드 ======== -->
+<div class="slide_wrap">
+  <div class="card"><img src="ex_img/PC_slide_wrap_01.jpg"></div>
+  <div class="card"><img src="ex_img/PC_slide_wrap_02.jpg"></div>
+  <div class="card"><img src="ex_img/PC_slide_wrap_03.jpg"></div>
+  <div class="card"><img src="ex_img/PC_slide_wrap_04.jpg"></div>
+  <div class="card"><img src="ex_img/PC_slide_wrap_05.jpg"></div>
+  <div class="card"><img src="ex_img/PC_slide_wrap_06.jpg"></div>
+</div>
+	
 	
 <!-- ================= 프로모션 페이지 끝 ================= -->
 </div> 
@@ -267,6 +322,31 @@ const observerBlur = new IntersectionObserver((entries) => {
   });
 },{threshold:0.5}); // 이미지 영역이 화면에 50% 이상 들어오면 active 클래스 실행
 targets.forEach(el => observerBlur.observe(el));
+	
+	
+	
+// slide-wrap 적용
+const cards = document.querySelectorAll('.card'); // querySelectorAll('.card') : HTML에서 class가 card인 요소를 모두 가져와
+const total = cards.length; // cards.length : 가져온 카드의 총 개수를 계산해.
+let index = 1; // index는 현재 중앙에 위치할 카드의 번호 / 1번카드 0, 2번카드 1, 2번카드 2 ...
+function slide() {
+  cards.forEach((card, i) => {
+    card.className = 'card';
+
+    let pos = (i - index + total) % total; 
+	// pos : 현재 카드가 중앙을 기준으로 어느 위치에 있는지 계산
+
+    if (pos === 0) card.classList.add('center');
+    else if (pos === 1) card.classList.add('right');
+    else if (pos === total - 1) card.classList.add('left');
+  });
+
+  index = (index + 1) % total; // 현재 중앙에 있는 카드 번호를 1씩 증가
+}
+
+slide();
+setInterval(slide, 3000); // 3초마다 중앙 카드가 다음 카드로 바뀌는 구조
+
 </script>
 	
 </body>
